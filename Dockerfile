@@ -9,6 +9,10 @@ RUN pip3 install -r /tmp/requirements.txt
 
 COPY gunicorn_conf.py /workdir/gunicorn_conf.py
 COPY app /workdir/app
+
+RUN chgrp -R 0 /workdir && \
+    chmod -R g=u /workdir
+
 WORKDIR /workdir/app
 
 # Set Python path
