@@ -25,7 +25,7 @@ try:
     user=db_config['user'],
     password=db_config['password'],
     host=db_config['host'],
-    port=db_config['port']
+    port=int(db_config['port'])
   )
 
 except:
