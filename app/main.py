@@ -17,8 +17,8 @@ title = ("Flask on %s" % host)
 db_config = {
   'user': os.getenv('DATABASE_USER', None),
   'password': os.getenv('DATABASE_PASSWORD', None),
-  'name': os.getenv('DATABASE_NAME', None),
-  'host': os.getenv('DATABASE_HOST', None),
+  'name': os.getenv('DATABASE_NAME', 'numbers.db'),
+  'host': os.getenv('DATABASE_HOST', 'localhost'),
   'port': os.getenv('DATABASE_PORT', None)
 }
 
@@ -35,7 +35,7 @@ try:
 
 except:
   db = pw.SqliteDatabase(
-    'app.db',
+    db_config['name'],
     pragmas={
       'journal_mode': 'wal',
       'cache_size': -1024 * 64
