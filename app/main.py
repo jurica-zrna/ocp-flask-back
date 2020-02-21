@@ -59,12 +59,17 @@ class Number(Resource):
     query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
     for row in query:
       nums.append(row)
-    return {'numbers': nums}
+    return {'numbers': nums, 'host': host}
 
   def put(self, num):
+    nums = 0;
     for i in range(0,num):
-      NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
-    return {'numbers': num}
+      try:
+        NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
+        nums = nums + 1;
+      except:
+        pass
+    return {'numbers': nums, 'host': host}
 
 api.add_resource(Number, '/api/num/<int:num>')
 
