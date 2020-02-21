@@ -51,11 +51,16 @@ db.create_tables([NumberCollection])
 
 api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
+class Number(Resource):
+  def get(self):
+    nums = []
+    query = NumberCollection.select().order_by(fn.Random()).limit(10).dicts()
+    for row in query:
+      nums.append(row)
+        
+    return {'numbers': nums}
 
-api.add_resource(HelloWorld, '/api/hw')
+api.add_resource(Number, '/api/num')
 
 @app.route('/')
 def hello():
