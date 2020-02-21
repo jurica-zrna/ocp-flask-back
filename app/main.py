@@ -13,7 +13,7 @@ db_config = {
   'port': os.getenv('databse-port', None)
 }
 
-app.logger.info(db_cobfig)
+app.logger.info(db_config)
 
 @app.route('/')
 def hello():
