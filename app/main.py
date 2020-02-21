@@ -1,8 +1,11 @@
 import os
 import logging
 from flask import Flask, render_template
-from peewee import *
+from flask_restful import Resource, Api
+import peewee as pw
 app = Flask(__name__)
+api = Api(app)
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -20,7 +23,7 @@ db_config = {
 db = None
 
 try:
-  db = PostgresqlDatabase(
+  db = pw.PostgresqlDatabase(
     db_config['name'],
     user=db_config['user'],
     password=db_config['password'],
@@ -29,7 +32,7 @@ try:
   )
 
 except:
-  db = SqliteDatabase(
+  db = pw.SqliteDatabase(
     'app.db',
     pragmas={
       'journal_mode': 'wal',
@@ -37,8 +40,8 @@ except:
     }
   )
 
-class NumberCollection(Model):
-    number = BigIntegerField(unique=True)
+class NumberCollection(pw.Model):
+    number = pw.BigIntegerField(unique=True)
 
     class Meta:
         database = db # This model uses the "people.db" database.
@@ -46,9 +49,16 @@ class NumberCollection(Model):
 db.connect()
 db.create_tables([NumberCollection])
 
+api = Api(app)
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api.add_resource(HelloWorld, '/api/hw')
+
 @app.route('/')
 def hello():
-    app.logger.info(db_config)
     return render_template('index.html', title=title, host=host, db_config = db_config)
 
 if __name__ == '__main__':
