@@ -61,10 +61,10 @@ class Number(Resource):
       nums.append(row)
     return {'numbers': nums}
 
-    def put(self, num):
-        for i in range(0,num):
-          NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
-        return {'numbers': num}
+  def put(self, num):
+    for i in range(0,num):
+      NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
+    return {'numbers': num}
 
 api.add_resource(Number, '/api/num/<int:num>')
 
