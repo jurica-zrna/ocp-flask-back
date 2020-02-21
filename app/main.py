@@ -1,6 +1,7 @@
 import os
 import logging
 from flask import Flask, render_template
+from peewee import *
 app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
@@ -15,6 +16,26 @@ db_config = {
   'host': os.getenv('DATABASE_HOST', None),
   'port': os.getenv('DATABASE_PORT', None)
 }
+
+db = None
+
+try:
+  db = MySQLDatabase(
+    db_config['name'],
+    user=db_config['user'],
+    password=db_config['password'],
+    host=db_config['host'],
+    port=db_config['port']
+  )
+
+except:
+  db = SqliteDatabase(
+    'app.db',
+    pragmas={
+      'journal_mode': 'wal',
+      'cache_size': -1024 * 64
+    }
+  )
 
 @app.route('/')
 def hello():
