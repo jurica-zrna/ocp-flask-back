@@ -13,10 +13,9 @@ db_config = {
   'port': os.getenv('databse-port', None)
 }
 
-app.logger.info(db_config)
-
 @app.route('/')
 def hello():
+    app.logger.info(db_config)
     return render_template('index.html', title=title, host=host, db_config = db_config)
 
 if __name__ == '__main__':
