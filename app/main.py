@@ -9,11 +9,11 @@ host = os.getenv('HOSTNAME', 'localhost')
 title = ("Flask on %s" % host)
 
 db_config = {
-  'user': os.getenv('databse-user', None),
-  'password': os.getenv('databse-password', None),
-  'name': os.getenv('databse-name', None),
-  'host': os.getenv('databse-host', None),
-  'port': os.getenv('databse-port', None)
+  'user': os.getenv('DATABASE_USER', None),
+  'password': os.getenv('DATABASE_PASSWORD', None),
+  'name': os.getenv('DATABASE_NAME', None),
+  'host': os.getenv('DATABASE_HOST', None),
+  'port': os.getenv('DATABASE_PORT', None)
 }
 
 @app.route('/')
