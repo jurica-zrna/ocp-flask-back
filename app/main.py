@@ -66,7 +66,7 @@ class Number(Resource):
           NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
         return {'numbers': num}
 
-api.add_resource(Number, '/api/num/<int:num>)
+api.add_resource(Number, '/api/num/<int:num>')
 
 @app.route('/')
 def hello():
