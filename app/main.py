@@ -37,6 +37,15 @@ except:
     }
   )
 
+class NumberCollection(Model):
+    number = BigIntegerField(unique=True)
+
+    class Meta:
+        database = db # This model uses the "people.db" database.
+
+db.connect()
+db.create_tables(NumberCollection)
+
 @app.route('/')
 def hello():
     app.logger.info(db_config)
