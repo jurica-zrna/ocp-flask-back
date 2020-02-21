@@ -6,11 +6,11 @@ host = os.getenv('HOSTNAME', 'localhost')
 title = ("Flask on %s" % host)
 
 db_config = {
-  user = os.getenv('databse-user', None),
-  password = os.getenv('databse-password', None),
-  name = os.getenv('databse-name', None),
-  host = os.getenv('databse-host', None),
-  port = os.getenv('databse-port', None)
+  'user': os.getenv('databse-user', None),
+  'password': os.getenv('databse-password', None),
+  'name': os.getenv('databse-name', None),
+  'host': os.getenv('databse-host', None),
+  'port': os.getenv('databse-port', None)
 }
 
 
