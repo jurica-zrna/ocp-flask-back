@@ -1,6 +1,9 @@
 import os
+import logging
 from flask import Flask, render_template
 app = Flask(__name__)
+
+logging.basicConfig(level=logging.INFO)
 
 host = os.getenv('HOSTNAME', 'localhost')
 title = ("Flask on %s" % host)
