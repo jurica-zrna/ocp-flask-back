@@ -1,3 +1,2 @@
 peewee
-psycopg2-binary
 sqlite3
