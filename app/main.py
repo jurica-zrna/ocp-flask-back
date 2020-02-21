@@ -1,3 +1,5 @@
+import sys
+import random
 import os
 import logging
 from flask import Flask, render_template
@@ -52,15 +54,19 @@ db.create_tables([NumberCollection])
 api = Api(app)
 
 class Number(Resource):
-  def get(self):
+  def get(self, num):
     nums = []
-    query = NumberCollection.select().order_by(fn.Random()).limit(10).dicts()
+    query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
     for row in query:
       nums.append(row)
-        
     return {'numbers': nums}
 
-api.add_resource(Number, '/api/num')
+    def put(self, num):
+        for i in range(0,num):
+          NumberCollection.insert(number = random.randint(0,sys.maxsize)).execute()
+        return {'numbers': num}
+
+api.add_resource(Number, '/api/num/<int:num>)
 
 @app.route('/')
 def hello():
