@@ -20,7 +20,7 @@ db_config = {
 db = None
 
 try:
-  db = MySQLDatabase(
+  db = PostgresqlDatabase(
     db_config['name'],
     user=db_config['user'],
     password=db_config['password'],
