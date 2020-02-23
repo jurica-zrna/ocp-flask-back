@@ -1,4 +1,4 @@
-# ocp-flask-sample
+# ocp-flask-back
 
 A simple flask application. Serves an index page on port ```8080``` showing ```hostname``` and database info.
 
