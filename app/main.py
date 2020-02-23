@@ -2,7 +2,7 @@ import sys
 import random
 import os
 import logging
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from flask_restful import Resource, Api
 from flask_cors import CORS
 import peewee as pw
@@ -63,7 +63,10 @@ class Number(Resource):
     query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
     for row in query:
       nums.append(row)
-    return {'numbers': nums, 'host': host}
+
+    response = make_response({'numbers': nums, 'host': host})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
   def put(self, num):
     nums = 0;
@@ -73,7 +76,9 @@ class Number(Resource):
         nums = nums + 1;
       except:
         pass
-    return {'numbers': nums, 'host': host}
+    response = make_response({'numbers': nums, 'host': host})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 api.add_resource(Number, '/api/num/<int:num>')
 
