@@ -61,10 +61,13 @@ def get_numbers(num, timeout = 3):
     raise Exception("Timed out!")
 
   signal.signal(signal.SIGALRM, signal_handler)
-  signal.alarm(timeout)  
   try:
-    return NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
+    signal.alarm(timeout)  
+    query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
+    signal.alarm(0)
+    return query
   except Exception as msg:
+    signal.alarm(0)
     return { 'error': msg }
 
 class Number(Resource):
