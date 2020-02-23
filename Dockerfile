@@ -1,5 +1,5 @@
 FROM alpine:3
-RUN apk --update add --no-cache python3 py3-flask py3-gunicorn py3-setuptools py3-psycopg2
+RUN apk --update add --no-cache python3 py3-flask py3-gunicorn py3-setuptools py3-psycopg2 curl
 
 ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
