@@ -57,18 +57,21 @@ db.create_tables([NumberCollection])
 api = Api(app)
 
 def get_numbers(num, timeout = 3):
+  ret = None
+
   def signal_handler(signum, frame):
     raise Exception("Timed out!")
 
   signal.signal(signal.SIGALRM, signal_handler)
+  signal.alarm(timeout)  
+
   try:
-    signal.alarm(timeout)  
-    query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
-    signal.alarm(0)
-    return query
+    ret = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
   except Exception as msg:
-    signal.alarm(0)
-    return { 'error': msg }
+    ret = { 'msg' : msg }
+
+  signal.alarm(0)
+  return ret
 
 class Number(Resource):
   def get(self, num):
