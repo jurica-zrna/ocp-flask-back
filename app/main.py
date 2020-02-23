@@ -53,6 +53,8 @@ db.create_tables([NumberCollection])
 
 api = Api(app)
 
+app.logger.info(db_config)
+
 class Number(Resource):
   def get(self, num):
     nums = []
