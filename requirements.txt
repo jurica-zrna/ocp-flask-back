@@ -1,2 +1,3 @@
 peewee
 flask-restful
+flask-cors

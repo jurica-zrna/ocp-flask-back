@@ -4,10 +4,11 @@ import os
 import logging
 from flask import Flask, render_template
 from flask_restful import Resource, Api
+from flask_cors import CORS
 import peewee as pw
 app = Flask(__name__)
 api = Api(app)
-
+CORS(app)
 
 logging.basicConfig(level=logging.INFO)
 
