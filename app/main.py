@@ -7,10 +7,29 @@ import json
 from flask import Flask, render_template, make_response
 from flask_restful import Resource, Api
 import peewee as pw
+
+from logging.config import dictConfig
+
+dictConfig({
+  'version': 1,
+  'formatters': {'default': {
+    'format': '{ "timestamp": "%(asctime)s", "level": "%(levelname)s", "module": "%(module)s", "message": "%(message)s" }',
+  }},
+  'handlers': {'wsgi': {
+    'class': 'logging.StreamHandler',
+    'stream': 'ext://flask.logging.wsgi_errors_stream',
+    'formatter': 'default'
+  }},
+  'root': {
+    'level': 'INFO',
+    'handlers': ['wsgi']
+  }
+})
+
 app = Flask(__name__)
 api = Api(app)
 
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 host = os.getenv('HOSTNAME', 'localhost')
 title = ("Flask on %s" % host)
