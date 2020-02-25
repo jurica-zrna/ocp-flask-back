@@ -42,7 +42,7 @@ db_config = {
   'port': os.getenv('DATABASE_PORT', None)
 }
 
-app.logger.info("Using database: %s on: %s." % (db_config.name, db_config.host))
+app.logger.info("Using database: %s on: %s." % (db_config['name'], db_config['host']))
 
 db = None
 
