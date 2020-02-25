@@ -4,7 +4,7 @@ import random
 import os
 import logging
 import json
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, request
 from flask_restful import Resource, Api
 import peewee as pw
 
@@ -42,7 +42,7 @@ db_config = {
   'port': os.getenv('DATABASE_PORT', None)
 }
 
-app.logger.info("Using database: %s on: %s." % db_config.name, db_config.host)
+app.logger.info("Using database: %s on: %s." % (db_config.name, db_config.host))
 
 db = None
 
@@ -77,6 +77,8 @@ api = Api(app)
 
 class Number(Resource):
   def get(self, num):
+    app.logger.info("GET request on: %s from: %s." % (request.path, request.remote_addr))
+
     nums = []
     query = NumberCollection.select().order_by(pw.fn.Random()).limit(num).dicts()
 
@@ -88,6 +90,7 @@ class Number(Resource):
     return response
 
   def put(self, num):
+    app.logger.info("PUT request on: %s from: %s." % (request.path, request.remote_addr))
     nums = 0;
     for i in range(0,num):
       try:
